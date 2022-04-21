@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="212dp"
+        android:layout_marginTop="۰dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/img_video"
+            android:layout_width="414dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="۸dp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.666"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/img_channel"
+            android:layout_width="41dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="161dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/circle_channel"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_title_video"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="85dp"
+            android:layout_marginTop="158dp"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Dark Mode" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_title_channel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="۰dp"
+            android:layout_marginTop="8dp"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="@+id/txt_title_video"
+            app:layout_constraintTop_toBottomOf="@+id/txt_title_video"
+            tools:text="Android Developer" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/img_more_item"
+            android:layout_width="5dp"
+            android:layout_height="29dp"
+            android:layout_marginStart="372dp"
+            android:layout_marginEnd="37dp"
+            android:layout_marginBottom="17dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/ic_icon_feather_more_vertical" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
