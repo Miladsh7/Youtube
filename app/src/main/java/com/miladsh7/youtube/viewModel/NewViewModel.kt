@@ -17,10 +17,11 @@ import javax.inject.Inject
 @HiltViewModel
 class NewViewModel @Inject constructor(
     private val newRepository: NewRepository
-):ViewModel() {
+) : ViewModel() {
 
     lateinit var database: ChannelDatabase
-    private var context:Context? = null
+    private var context: Context? = null
+
     init {
         getNewVideo()
     }
@@ -28,9 +29,9 @@ class NewViewModel @Inject constructor(
     private fun getNewVideo() = viewModelScope.launch {
         newRepository.getNewVideos().filter { videoItem ->
             videoItem.id.contains("10") && videoItem.id.contains("7") && videoItem.id.contains("6")
-            when(videoItem.catId){
-                "8" ->{
-                    val trtImage=
+            when (videoItem.catId) {
+                "8" -> {
+                    val trtImage =
                         ResourcesCompat.getDrawable(context!!.resources, R.drawable.trt, null)
                     val channel = trtImage?.let { Channel("TRT1", it) }
                     val channelDao = database.getChannel()
@@ -39,8 +40,8 @@ class NewViewModel @Inject constructor(
 
                 }
 
-                "4"->{
-                    val cartonImage=
+                "4" -> {
+                    val cartonImage =
                         ResourcesCompat.getDrawable(context!!.resources, R.drawable.pooya, null)
                     val channel = cartonImage?.let { Channel("Pooya", it) }
                     val channelDao = database.getChannel()
@@ -48,7 +49,7 @@ class NewViewModel @Inject constructor(
                     return@launch
 
                 }
-                else ->{
+                else -> {
                     return@launch
                 }
             }
