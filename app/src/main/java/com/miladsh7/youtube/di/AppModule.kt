@@ -4,7 +4,10 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 
-@Module
+@Module(
+    includes = [RepositoryModule::class,
+        RepositoryModule.Bindings::class]
+)
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
