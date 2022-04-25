@@ -14,16 +14,11 @@ object RepositoryModule {
     @Module
     interface Bindings{
 
-        @Binds
-        @Singleton
-        fun provideBestRepository(bestRepositoryImpl: BestRepositoryImpl):BestRepository
 
         @Binds
         @Singleton
         fun provideSpecialRepository(specialRepositoryImpl: SpecialRepositoryImpl):SpecialRepository
 
-        @Binds
-        @Singleton
-        fun provideNewRepository(newsRepositoryImpl: NewsRepositoryImpl):NewRepository
+
     }
 }
