@@ -7,7 +7,7 @@ import retrofit2.http.GET
 interface ApiService {
 
     @GET("getNewVideos.php")
-    suspend fun getNewVideos():List<VideoItem>
+    suspend fun getBanner():List<VideoItem>
 
     @GET("getBestVideos.php")
     suspend fun getBestVideos():List<VideoItem>
