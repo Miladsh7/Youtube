@@ -1,15 +1,11 @@
 package com.miladsh7.youtube.di
 
-import android.content.Context
-import androidx.room.Room
-import androidx.room.RoomDatabase
 import com.miladsh7.youtube.api.ApiService
-import com.miladsh7.youtube.db.ChannelDao
-import com.miladsh7.youtube.db.ChannelDatabase
+import com.miladsh7.youtube.service.FrescoImageLoadingService
+import com.miladsh7.youtube.service.ImageLoadingService
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.migration.DisableInstallInCheck
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -32,11 +28,9 @@ object YoutubeModule {
 
     @Provides
     @Singleton
-    fun provideChannelDatabase(
-        @ApplicationContext app: Context
-    ) = Room.databaseBuilder(app, ChannelDatabase::class.java, "channel_db").build()
-
-    @Provides
-    @Singleton
-    fun provideChannelDao(channelDatabase: ChannelDatabase) = channelDatabase.getChannel()
+    fun provideFrescoImageLoadingService(
+        frescoImageLoadingService: FrescoImageLoadingService
+    ): ImageLoadingService {
+        return frescoImageLoadingService
+    }
 }

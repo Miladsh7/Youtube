@@ -1,6 +1,9 @@
 package com.miladsh7.youtube.di
 
-import com.miladsh7.youtube.repo.*
+import com.miladsh7.youtube.repo.BannerRepository
+import com.miladsh7.youtube.repo.BannerRepositoryImpl
+import com.miladsh7.youtube.repo.SpecialRepository
+import com.miladsh7.youtube.repo.SpecialRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.migration.DisableInstallInCheck
@@ -18,6 +21,11 @@ object RepositoryModule {
         @Binds
         @Singleton
         fun provideSpecialRepository(specialRepositoryImpl: SpecialRepositoryImpl):SpecialRepository
+
+        @Binds
+        @Singleton
+        fun provideBannerRepository(bannerRepositoryImpl: BannerRepositoryImpl):BannerRepository
+
 
 
     }

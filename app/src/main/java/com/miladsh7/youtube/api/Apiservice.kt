@@ -1,7 +1,6 @@
 package com.miladsh7.youtube.api
 
 import com.miladsh7.youtube.model.VideoItem
-import retrofit2.Response
 import retrofit2.http.GET
 
 interface ApiService {

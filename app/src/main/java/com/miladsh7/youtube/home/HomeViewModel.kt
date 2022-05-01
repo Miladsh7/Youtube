@@ -1,85 +1,56 @@
 package com.miladsh7.youtube.home
 
-import android.annotation.SuppressLint
-import android.content.Context
-import androidx.core.content.res.ResourcesCompat
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.miladsh7.youtube.R
-import com.miladsh7.youtube.db.ChannelDatabase
-import com.miladsh7.youtube.model.Channel
 import com.miladsh7.youtube.model.VideoItem
+import com.miladsh7.youtube.repo.BannerRepository
+import com.miladsh7.youtube.repo.BestRepository
 import com.miladsh7.youtube.repo.SpecialRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel(
-    private val specialRepository: SpecialRepository
-):ViewModel() {
+class HomeViewModel @Inject constructor(
+    private val bannerRepository: BannerRepository,
+    private val specialRepository: SpecialRepository,
+    private val bestRepository: BestRepository
+) : ViewModel() {
 
-    private var specialLiveData = MutableLiveData<List<VideoItem>>()
-    lateinit var database: ChannelDatabase
+    private var _bannersLiveData = MutableLiveData<List<VideoItem>>()
+    val bannerLiveData: LiveData<List<VideoItem>>
+        get() = _bannersLiveData
 
-    @SuppressLint("StaticFieldLeak")
-    private var context: Context? = null
+    private var _specialLiveData = MutableLiveData<List<VideoItem>>()
+    val specialLiveData: LiveData<List<VideoItem>>
+        get() = _specialLiveData
+
+    private var _bestLiveData = MutableLiveData<List<VideoItem>>()
+    val bestLiveData: LiveData<List<VideoItem>>
+        get() = _bestLiveData
+
 
     init {
-        getSpecialVideo()
-    }
-
-    private fun getSpecialVideo() = viewModelScope.launch {
-
-        specialRepository.getSpecialVideo().filter { videoItem ->
-            videoItem.id.startsWith("2") && videoItem.id.endsWith("10")
-            when (videoItem.catId) {
-                "2" -> {
-                    val androidDeveloper =
-                        ResourcesCompat.getDrawable(
-                            context!!.resources,
-                            R.drawable.android_developer,
-                            null
-                        )
-                    val channel = androidDeveloper?.let { Channel("Android Developer", it) }
-                    val channelDao = database.getChannel()
-                    val specialChannel = channel?.let { channelDao.insert(channel) }
-                    return@launch
-                }
-                "4" -> {
-                    val pooya =
-                        ResourcesCompat.getDrawable(context!!.resources, R.drawable.pooya, null)
-                    val channel = pooya?.let { Channel("pooya", it) }
-                    val channelDao = database.getChannel()
-                    val specialChannel = channel?.let { channelDao.insert(channel) }
-                    return@launch
-                }
-
-                "5" -> {
-                    val varzesh3 =
-                        ResourcesCompat.getDrawable(context!!.resources, R.drawable.varzesh_3, null)
-                    val channel = varzesh3?.let { Channel("Varzesh3", it) }
-                    val channelDao = database.getChannel()
-                    val specialChannel = channel?.let { channelDao.insert(channel) }
-                    return@launch
-                }
-
-                "8" -> {
-                    val trt =
-                        ResourcesCompat.getDrawable(context!!.resources, R.drawable.trt, null)
-                    val channel = trt?.let { Channel("TRT1", it) }
-                    val channelDao = database.getChannel()
-                    val specialChannel = channel?.let { channelDao.insert(channel) }
-                    return@launch
-                }
-                else -> {
-                    throw IllegalAccessException("Invalid not cat_id")
-                }
+        viewModelScope.launch(Dispatchers.IO) {
+            bannerRepository.getBanner().let {
+                _bannersLiveData.postValue(it)
             }
-        }.let {
-            specialLiveData.postValue(it)
         }
 
-    }
+        viewModelScope.launch(Dispatchers.IO) {
+            specialRepository.getSpecialVideo().let {
+                _specialLiveData.postValue(it)
+            }
+        }
 
+        viewModelScope.launch(Dispatchers.IO) {
+            bestRepository.getBestVideo().let {
+                _bestLiveData.postValue(it)
+
+            }
+        }
+    }
 }

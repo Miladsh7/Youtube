@@ -1,17 +1,16 @@
 package com.miladsh7.youtube.home
 
-import android.content.Context
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.miladsh7.youtube.databinding.ItemVideoBinding
 import com.miladsh7.youtube.model.VideoItem
 
 class VideoAdapter(
-    private var context: Context,
-    private var video: MutableList<VideoItem>,
-    private var channel: MutableList<Channel>
+    private var context: HomeFragment,
+    private var video: List<VideoItem>,
+
 ) : RecyclerView.Adapter<VideoAdapter.VideoViewHolder>() {
 
 
@@ -25,7 +24,7 @@ class VideoAdapter(
 
     override fun onBindViewHolder(holder: VideoViewHolder, position: Int) {
         holder.bindVideo(video[position])
-        holder.bindChannel(channel[position])
+
     }
 
     override fun getItemCount(): Int {
@@ -37,22 +36,16 @@ class VideoAdapter(
 
         fun bindVideo(videoItem: VideoItem) {
             videoBinding.apply {
-                txtTitleVideo.text = videoItem.title
-                Glide.with(context).load(videoItem.icon).into(imgVideo)
 
-                imgMoreItem.setOnClickListener {
+                txtTitle.text = videoItem.title
+                txtView.text = videoItem.view
 
 
-                }
             }
         }
 
-        fun bindChannel(channel: Channel) {
-            videoBinding.apply {
-                txtTitleChannel.text = channel.titleChannel
-                Glide.with(context).load(channel.imageChannel).into(imgChannel)
-            }
-        }
 
     }
+
+
 }
